@@ -16,4 +16,5 @@
 
 ## Зміст
 
+[Василишин Тарас](./Taras_Vasylychyn/README.md)
 ...
