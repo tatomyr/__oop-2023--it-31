@@ -17,4 +17,5 @@
 ## Зміст
 
 [Василишин Тарас](./Taras_Vasylychyn/README.md)
+[Бунга Володимир](./Volodya_Bunga/README.md)
 ...
