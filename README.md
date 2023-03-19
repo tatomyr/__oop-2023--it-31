@@ -17,4 +17,7 @@
 ## Зміст
 
 [Василишин Тарас](./Taras_Vasylychyn/README.md)
+
+[Сокульський Андрій](./andrii-sokulskyi/README.md)
+
 ...
