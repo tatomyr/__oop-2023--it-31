@@ -20,4 +20,4 @@ class Employee:
 emp_1 = Employee('Corey', 'Schafer', 50000)
 emp_2 = Employee('Test', 'User', 60000)
 
-print(Employee.num_of_emps)
+print(Employee.raise_amount)
