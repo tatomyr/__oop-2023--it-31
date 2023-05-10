@@ -1,5 +1,6 @@
 from version_2 import Cow
 from version_2 import Chicken
+import pandas as pd
 import sqlite3
 
 
@@ -10,7 +11,20 @@ class Database:
         self.cursor = self.conn.cursor()
     
     def add_cow(self, cow):
-        self.cursor.execute("INSERT INTO cows (id, name, date, howmuch, animal_id) VALUES (?, ?, ?, ?, ?)", (cow.id, cow.name, cow.a_name1, cow.much, cow.dep_numb))
+        cursor = self.conn.cursor()
+        while True:
+            try:
+                cursor.execute("INSERT INTO cows (id, name, code_cows, howmuch, dep_number) VALUES (?, ?, ?, ?, ?)", (cow.id, cow.name, cow.a_name1, cow.much, cow.dep_numb))
+                break
+            except sqlite3.IntegrityError:
+                cow.id = input("Такий id вже існує спробуйте інший ")
+
+        self.conn.commit()
+
+          
+            
+         
+        
     def remove_chicken(self,value):
         query = f"DELETE FROM chickens WHERE id = ?"
         self.cursor.execute(query,(value,))
@@ -19,15 +33,31 @@ class Database:
         self.cursor.execute(query,(value,))
         
     def add_chicken(self,chicken):
-        self.cursor.execute("INSERT INTO cows (id, name, date, howmuch, animal_id) VALUES (?, ?, ?, ?, ?)", (chicken.id, chicken.name, chicken.a_name, chicken.much, chicken.dep_numb))
+        cursor = self.conn.cursor()
+        while True:
+            try:
+                cursor.execute("INSERT INTO chickens (id, name, how_many_chickens, howmuch, dep_number) VALUES (?, ?, ?, ?, ?)", (chicken.id, chicken.name, chicken.a_name, chicken.much, chicken.dep_numb))
+                break
+            except sqlite3.IntegrityError:
+                chicken.id = input("Такий id вже існує спробуйте інший ")
+
+        self.conn.commit()
 
     def get_all_chickens(self):
         self.cursor.execute("SELECT * FROM chickens")
-        return self.cursor.fetchall()
+        data = self.cursor.fetchall()
+        columns = [description[0] for description in self.cursor.description]
+        df = pd.DataFrame(data, columns=columns)
+        return print(df.to_string())
+
+    
 
     def get_all_cows(self):
         self.cursor.execute("SELECT * FROM cows")
-        return self.cursor.fetchall()
+        data = self.cursor.fetchall()
+        columns = [description[0] for description in self.cursor.description]
+        df = pd.DataFrame(data, columns=columns)
+        return print(df.to_string())
     
     def close(self):
         self.conn.close()
@@ -40,44 +70,43 @@ class UserInterface:
     def add_chicken(self):
         chicken= Chicken.from_input()
         self.db.add_chicken(chicken)
+        print(" Дані збережено, гарного дня")
+        
      
     def add_cow(self):
         
         cow = Cow.from_input()
         self.db.add_cow(cow)
-        print("Datas added successfully!")
+        print(" Дані збережено, гарного дня")
+        
+        
         
     def remove_chickens(self):
 
 
         id = input("введіть ід (наприклад: 2):\n")
         self.db.remove_chicken(id)
+        print("Дані видалено, гарного дня")
 
     def remove_cows(self):
 
 
         id = input("введіть ід (наприклад: 2):\n")
         self.db.remove_cow(id)
+        print("Дані видалено, гарного дня")
     
     def view_cows(self):
         cows = self.db.get_all_cows()
-        for cow in cows:
-            print(cow)
-
-        if not cows:
-            print("No cows in the database.")
+        print(cows)
+        
 
     def view_chickens(self):
         chickens = self.db.get_all_chickens()
-        for chicken in chickens:
-            print(chicken)
-
-        if not chickens:
-            print("No chickens in the database.")
+        print(chickens)
     
     def close_database(self):
         self.db.close()
-ui = UserInterface("/run/media/vova/Новий том/db/da.db")
+ui = UserInterface("/run/media/vova/Новий том/Навчання/oop/__oop-2023--it-31/Volodya_Bunga/kursova/da.db")
 
 
 def choice():
@@ -94,16 +123,16 @@ def choice():
              break
         elif x == '3':
             
-            ui.close_database()
+            
             break
         else :
             print("Такої тварини ще не добавлено")
 
 def choose() :
     
-     
+     print("Вас вітає програма <Лістер> для обліку тваринницької діяльності на даній фермі")
      while True :
-          print("Вас вітає програма <Лістер> для обліку тваринницької діяльності на даній фермі")
+          
           print("Якщо ви хочете добавити інформацію введіть - 1\nякщо ви хочете переглянути інформацію введіь -2 : \nякщо ви хочете видалити дані введіть - 3\nЯкщо ви хочете вийти виберіть - 4\n   ")
           y = str( input(""))
           if y == '1':
@@ -119,7 +148,7 @@ def choose() :
                          ui.view_chickens()
                          break
                     elif l =='3':
-                        ui.close_database()
+                        
                         break
                     else :
                          
@@ -139,7 +168,7 @@ def choose() :
                 elif "3" ==x:
                     break
           elif x == '4':
-            ui.close_database()
+            
             break
             
                   

@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.4.3 on Вт Бер 7 00:52:50 2023
+-- File generated with SQLiteStudio v3.4.3 on пїЅпїЅ пїЅпїЅпїЅ 7 00:52:50 2023
 --
 -- Text encoding used: System
 --
@@ -23,11 +23,11 @@ DROP TABLE IF EXISTS chickens;
 CREATE TABLE IF NOT EXISTS chickens (
     id        INT          PRIMARY KEY,
     name      VARCHAR (50),
-    date      INT,
+    how_many_chickens      INT,
     howmuch   VARCHAR (50),
-    animal_id INT,
+    dep_number INT,
     FOREIGN KEY (
-        animal_id
+        dep_number
     )
     REFERENCES animal (id) 
 );
@@ -39,11 +39,11 @@ DROP TABLE IF EXISTS cows;
 CREATE TABLE IF NOT EXISTS cows (
     id        INT          PRIMARY KEY,
     name      VARCHAR (50),
-    date      INT,
+    code_cows VARCHAR(50),
     howmuch   VARCHAR (50),
-    animal_id INT,
+    dep_number INT,
     FOREIGN KEY (
-        animal_id
+        dep_number
     )
     REFERENCES animal (id) 
 );
