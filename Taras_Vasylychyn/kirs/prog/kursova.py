@@ -1,5 +1,7 @@
 from main import Sunrise
 from main import Eagles
+from data import Data
+from ui import Ui
 import sqlite3
 
 class Data:
