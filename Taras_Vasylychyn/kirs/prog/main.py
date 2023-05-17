@@ -7,13 +7,15 @@ class Voloterr:
         self.hum = hum
 
 class Eagles(Voloterr):
-    def __init__(self, id, name, city, hum):
+    def __init__(self, id, name, city, hum, sucess):
         super().__init__(id, name, city, hum)
+        self.sucess = sucess
 
 
 class Sunrise(Voloterr):
-    def __init__(self, id, name, city, hum):
+    def __init__(self, id, name, city, hum, road):
         super().__init__(id,name,city,hum)
+        self.road = road
 
 
 
